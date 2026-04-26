@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const api = import.meta.env.VITE_API;
 const token = import.meta.env.VITE_TOKEN;
-export const GetData = async (props) => {
+export const GetData = async (props:any) => {
   try {
     const response = await axios.get(props.address);
     // await saveProducts(data);
