@@ -1,74 +1,93 @@
-import { Component } from 'react';
+import { useEffect, useState } from 'react';
 import logoToko from '../assets/img/logo.png';
+import { Icon } from '../components/icons';
+import { Adexmart } from '../components/ui/Informations';
+import { StatsGrid } from '../components/ui/statsgrid';
+const pad = (n: number) => n.toString().padStart(2, '0');
+export default function Home() {
+  const [time, setTime] = useState(() => new Date());
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTime(new Date());
+    }, 1000);
 
-export default class Home extends Component {
-  render() {
-    return (
-      <div className="flex w-screen">
-        <aside>
-          <div className="relative w-fit bg-base-300 flex h-screen flex-col items-start ">
-            <div className="h-full flex flex-col">
-              <div className="w-full flex flex-row justify-center py-3">
-                <img src={logoToko} alt="logo toko" className='w-16 h-16' />
-              </div>
-              <div className="h-[90vh]">
-                <ul className="menu w-full grow">
-                  {/* List item */}
-                  <li>
-                    <button
-                      className=""
-                      data-tip="Homepage"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        strokeLinejoin="round"
-                        strokeLinecap="round"
-                        strokeWidth="2"
-                        fill="none"
-                        stroke="currentColor"
-                        className="my-1.5 inline-block size-4"
-                      >
-                        <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
-                        <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                      </svg>
-                      <span className="is-drawer-close:hidden">Homepage</span>
-                    </button>
-                  </li>
-                </ul>
-              </div>
-              <div className="flex-1 pb-5 px-3">
-                <button
-                      className="btn btn-ghost btn-xs"
-                      data-tip="Homepage"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        strokeLinejoin="round"
-                        strokeLinecap="round"
-                        strokeWidth="2"
-                        fill="none"
-                        stroke="currentColor"
-                        className="my-1.5 inline-block size-4"
-                      >
-                        <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
-                        <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                      </svg>
-                      <span className="mx-3">Logout</span>
-                    </button></div>
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+  const h = pad(time.getHours());
+  const m = pad(time.getMinutes());
+  const s = pad(time.getSeconds());
+  return (
+    <div className="flex w-screen">
+      <aside>
+        <div className="relative w-fit bg-base-300 flex h-screen flex-col items-start ">
+          <div className="h-full flex flex-col">
+            <div className="w-full flex flex-row justify-center py-3">
+              <img src={logoToko} alt="logo toko" className="w-16 h-16" />
+            </div>
+            <div className="h-[90vh]">
+              <ul className="menu w-full grow menuhome">
+                <li>
+                  <a href="#">
+                    <Icon name="Dashboard" size={30} /> <span>Dashboard</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <Icon name="Transaksi" size={30} /> <span>Transaction</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <Icon name="Report" size={30} /> <span>Laporan</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <Icon name="Product" size={30} /> <span>Product</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#">
+                    <Icon name="Stock" size={30} /> <span>Stock</span>
+                  </a>
+                </li>
+                <li className="mt-10">
+                  <a href="#">
+                    <Icon name="Settings" size={30} /> <span>Settings</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div className="flex-1 pb-5 px-3">
+              <a href="#" className="icons">
+                <Icon name="Logout" /> <span>Logout</span>
+              </a>
             </div>
           </div>
-        </aside>
+        </div>
+      </aside>
+      <section className="flex-1 relative overflow-auto h-screen">
+        {/* Header */}
+        <div className="bg-base-200 px-3 h-12 flex items-center justify-between sticky top-0 z-10">
+          <p>
+            Selamat Datang : <strong>Akmad Nudin</strong>
+          </p>
+          <p className="px-3">{`${h}:${m}:${s}`} WIB</p>
+        </div>
 
-        <section className="flex-1 relative h-screen overflow-y-auto overflow-x-hidden">
-          <div className="bg-base-200 px-2 fixed w-full">&nbsp;</div>
-          <div className="bg-transparent-500 mt-3 min-h-[98vh]">&nbsp;</div>
-          <div className="fixed bottom-0 bg-base-200 w-full">
-            <h6>Ini adalah footer</h6>
-          </div>
-        </section>
-      </div>
-    );
-  }
+        {/* Content */}
+        <div className="bg-transparent px-3 pt-4 min-h-[91vh]">
+          <StatsGrid transactions={120} revenue={3500000} users={45}/>
+          <Adexmart/>
+        </div>
+
+        {/* Footer */}
+        <div className="h-8 flex items-center justify-end px-3 sticky bottom-0 bg-base-200">
+          <h6 className="text-xs">power By @adexmart 2026</h6>
+        </div>
+      </section>
+    </div>
+  );
 }
