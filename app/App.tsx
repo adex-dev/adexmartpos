@@ -1,12 +1,34 @@
-import background from './assets/background.svg';
-import Home from './pages/home';
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from 'react-router-dom';
+import TemplateDefault from './pages/templatedefault';
+import Home from './pages/includes/home';
+import ProductTable from './pages/includes/product';
+import SettingsPage from './pages/includes/settings';
 function App() {
-  return <>
-  <div className={`hero h-screen relative `}>
-        <img src={background} alt="background" className='h-full w-full absolute' />
-       <Home/>
-      </div>
-  </>;
+  const Logout = () => {
+    localStorage.clear();
+    window.location.href = '/login';
+  };
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <>
+        <Route path="/" element={<TemplateDefault />}>
+          <Route index element={<Home />} />
+          <Route path="/product" element={<ProductTable />} />
+          <Route path="/settings" element={<SettingsPage />} />
+        </Route>
+      </>,
+    ),
+  );
+  return (
+    <>
+      <RouterProvider router={router} />
+    </>
+  );
 }
 
 export default App;

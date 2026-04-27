@@ -1,11 +1,16 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @layer components {
-.menuhome >li >a {
-    @apply flex flex-row mx-2 hover:text-red-500
+  .menuhome > li > a {
+    @apply flex flex-row mx-2 hover:text-red-500;
+  }
+  .icons {
+    @apply rounded-sm flex flex-row mx-2 space-x-3 hover:text-red-500 hover:bg-neutral-300 py-1.5 px-3 w-fit;
+  }
+  .tab-active {
+    @apply text-black  border-b-2 border-red-500;
+  }
+  body.swal2-shown {
+    padding-right: 0 !important;
+  }
 }
-.icons{
-    @apply rounded-sm flex flex-row mx-2 space-x-3 hover:text-red-500 hover:bg-neutral-300 py-1.5 px-3 w-fit
-}
-
-}
-@plugin "daisyui"
+@plugin "daisyui";

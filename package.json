@@ -12,7 +12,8 @@
   "dependencies": {
     "path": "^0.12.7",
     "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+    "react-dom": "^19.1.1",
+    "sweetalert2": "^11.26.24"
   },
   "devDependencies": {
     "@boxicons/react": "^1.0.3",

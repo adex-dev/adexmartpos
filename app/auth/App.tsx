@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import background from '../assets/background.svg';
 import logo from '../assets/img/login.webp';
 import logoToko from '../assets/img/logo.png';
+import { showAlert } from '../components/utils/alert';
 import { Button, Form, Input, Title } from '../components/ui';
 export default function App() {
   const [err, setErr] = useState('');
@@ -22,10 +23,16 @@ export default function App() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (typeof form.username !== 'string' || form.username.trim() === '') {
-      setErr('Periksa kembali username anda.!');
+      showAlert({
+        actions: 'question',
+        title: 'Required Form',
+        timers: 2000,
+        message: 'Please fill all fields.',
+      });
+      // setErr('Periksa kembali username anda.!');
       return;
     }
     if (typeof form.password !== 'string' || form.password.trim() === '') {
@@ -48,16 +55,26 @@ export default function App() {
   return (
     <>
       <div className={`hero h-screen relative `}>
-        <img src={background} alt="background" className='h-full w-full absolute' />
+        <img
+          src={background}
+          alt="background"
+          className="h-full w-full absolute"
+        />
         <div className="flex w-full h-full justify-center flex-col items-center">
           <div className="w-1/2 h-[55%]">
             <div className="flex  w-full h-full">
               <div className="card bg-base-100  shrink-0 max-w-full w-2/3 mx-3 shadow-2xl pb-5">
                 <div className="card-body">
-                  <center><div >
-                    <img src={logoToko} className='w-32 h-32' alt="logo toko"/>
-                    <Title size="lg">Login</Title>
-                    </div></center>
+                  <center>
+                    <div>
+                      <img
+                        src={logoToko}
+                        className="w-32 h-32"
+                        alt="logo toko"
+                      />
+                      <Title size="lg">Login</Title>
+                    </div>
+                  </center>
                   <fieldset className="fieldset">
                     <Form onSubmit={handleSubmit}>
                       <Input
@@ -100,7 +117,11 @@ export default function App() {
               <div className="hover-3d w-96">
                 {/* content */}
                 <figure className="relative w-full h-full rounded-2xl">
-                  <img src={logo} alt="Tailwind CSS 3D hover" className=' h-full'/>
+                  <img
+                    src={logo}
+                    alt="Tailwind CSS 3D hover"
+                    className=" h-full"
+                  />
                 </figure>
                 {/* 8 empty divs needed for the 3D effect */}
                 <div></div>

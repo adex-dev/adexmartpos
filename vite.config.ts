@@ -9,7 +9,7 @@ export default defineConfig({
   },
   plugins: [
     react(),
-    tailwindcss(), // ✅ DI SINI, bukan di postcss
+    tailwindcss(),
   ],
   build: {
     rollupOptions: {
