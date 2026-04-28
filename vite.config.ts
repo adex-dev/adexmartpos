@@ -7,14 +7,10 @@ export default defineConfig({
     hmr: true,
     host: '0.0.0.0',
   },
-  plugins: [
-    react(),
-    tailwindcss(),
-  ],
+  plugins: [react(), tailwindcss()],
   build: {
     rollupOptions: {
       input: {
-        index: 'index.html',
         login: 'login.html',
       },
     },

@@ -1,6 +1,9 @@
 import logoToko from '../assets/img/logo.png';
 import { Icon } from '../components/icons/icons';
 export default function NavBar() {
+  const HandleClick = (text) => {
+    console.log(text);
+  };
   return (
     <>
       <aside>
@@ -12,41 +15,41 @@ export default function NavBar() {
             <div className="h-[90vh]">
               <ul className="menu w-full grow menuhome">
                 <li>
-                  <a href="/">
+                  <button onClick={HandleClick('/')}>
                     <Icon name="Dashboard" size={30} /> <span>Dashboard</span>
-                  </a>
+                  </button>
                 </li>
                 <li>
-                  <a href="#">
+                  <button onClick={HandleClick('/transaction')}>
                     <Icon name="Transaksi" size={30} /> <span>Transaction</span>
-                  </a>
+                  </button>
                 </li>
                 <li>
-                  <a href="#">
+                  <button onClick={HandleClick('/report')}>
                     <Icon name="Report" size={30} /> <span>Laporan</span>
-                  </a>
+                  </button>
                 </li>
                 <li>
-                  <a href="/product">
+                  <button onClick={HandleClick('/product')}>
                     <Icon name="Product" size={30} /> <span>Product</span>
-                  </a>
+                  </button>
                 </li>
                 <li>
-                  <a href="#">
+                  <button onClick={HandleClick('/stock')}>
                     <Icon name="Stock" size={30} /> <span>Stock</span>
-                  </a>
+                  </button>
                 </li>
                 <li className="mt-10">
-                  <a href="/settings">
+                  <button onClick={HandleClick('/settings')}>
                     <Icon name="Settings" size={30} /> <span>Settings</span>
-                  </a>
+                  </button>
                 </li>
               </ul>
             </div>
             <div className="flex-1 pb-5 px-3">
-              <a href="#" className="icons">
+              <button onClick={HandleClick('/logout')} className="icons">
                 <Icon name="Logout" /> <span>Logout</span>
-              </a>
+              </button>
             </div>
           </div>
         </div>

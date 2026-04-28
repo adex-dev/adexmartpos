@@ -4,31 +4,42 @@ import {
   Route,
   RouterProvider,
 } from 'react-router-dom';
+import { AuthProvider } from './components/services/AuthContext';
 import TemplateDefault from './pages/templatedefault';
 import Home from './pages/includes/home';
 import ProductTable from './pages/includes/product';
 import SettingsPage from './pages/includes/settings';
-function App() {
-  const Logout = () => {
-    localStorage.clear();
-    window.location.href = '/login';
-  };
-  const router = createBrowserRouter(
-    createRoutesFromElements(
-      <>
-        <Route path="/" element={<TemplateDefault />}>
-          <Route index element={<Home />} />
-          <Route path="/product" element={<ProductTable />} />
-          <Route path="/settings" element={<SettingsPage />} />
-        </Route>
-      </>,
-    ),
-  );
-  return (
+import ProtectedRoute from './ProtectedRoutes';
+import AppLogin from './auth/App';
+import Logout from './auth/logout';
+const router = createBrowserRouter(
+  createRoutesFromElements(
     <>
-      <RouterProvider router={router} />
-    </>
-  );
+      <Route path="/login" element={<AppLogin />} />
+      <Route path="/logout" element={<Logout />} />
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute>
+            <TemplateDefault />
+          </ProtectedRoute>
+        }
+      >
+        <Route index element={<Home />} />
+        <Route path="/product" element={<ProductTable />} />
+        <Route path="/settings" element={<SettingsPage />} />
+      </Route>
+    </>,
+  ),
+);
+function AppContent() {
+  return <RouterProvider router={router} />;
 }
 
-export default App;
+export default function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
+  );
+}

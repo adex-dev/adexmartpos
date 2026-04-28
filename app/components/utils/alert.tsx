@@ -4,7 +4,7 @@ import React from 'react';
 type AlertProps = {
   variant?: 'success' | 'error' | 'info' | 'warning' | 'question';
   title?: string;
-  messages?: string;
+  message?: string;
   buttonConfirm?: boolean;
   buttonCancel?: boolean;
   confirmText?: string;
@@ -25,7 +25,7 @@ export const showAlert = ({
   variant = 'success',
   actions = 'success',
   title = '',
-  messages = '',
+  message = '',
   buttonConfirm = true,
   buttonCancel = false,
   question = false,
@@ -43,7 +43,7 @@ export const showAlert = ({
       finalVariant = actions;
       finalConfirm = false;
       break;
-    case 'success2':
+    case 'success-confirm':
       finalVariant = 'success';
       finalConfirm = true;
       finalQuestion = true;
@@ -61,7 +61,7 @@ export const showAlert = ({
   const alertPromise = Swal.fire({
     icon: finalVariant,
     title: title,
-    text: messages,
+    text: message,
     showConfirmButton: finalConfirm,
     showCancelButton: buttonCancel,
     allowEscapeKey: finalConfirm ? true : false,

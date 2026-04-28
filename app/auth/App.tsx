@@ -4,7 +4,12 @@ import logo from '../assets/img/login.webp';
 import logoToko from '../assets/img/logo.png';
 import { showAlert } from '../components/utils/alert';
 import { Button, Form, Input, Title } from '../components/ui';
-export default function App() {
+import { PostLogin } from '../components/services/Api';
+import { setAccessToken } from '../components/services/axios';
+import { useNavigate } from 'react-router-dom';
+export default function AppLogin() {
+  const navigate = useNavigate();
+  const address = 'public/login';
   const [err, setErr] = useState('');
   const [form, setForm] = useState({
     username: '',
@@ -26,22 +31,61 @@ export default function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (typeof form.username !== 'string' || form.username.trim() === '') {
-      showAlert({
-        actions: 'question',
-        title: 'Required Form',
-        timers: 2000,
-        message: 'Please fill all fields.',
-      });
-      // setErr('Periksa kembali username anda.!');
-      return;
+      setErr('Periksa kembali username anda.!');
     }
     if (typeof form.password !== 'string' || form.password.trim() === '') {
       setErr('Periksa kembali password anda.!');
+    }
+    if (err) {
+      console.log(err);
+      showAlert({
+        actions: 'error',
+        title: 'kesalahan',
+        timers: 2000,
+        message: err,
+      });
       return;
     }
     setErr('');
-    console.log(form);
-    // { email: "...", password: "..." }
+    try {
+      let data = await PostLogin({
+        address: address,
+        form: {
+          password: form.password,
+          usernamekeys: form.username,
+          keys: 'adexmart',
+        },
+      });
+      if (data.success === true || data.status === true) {
+        data = data.data;
+        setAccessToken(data.token);
+        showAlert({
+          actions: 'success',
+          title: 'Success',
+          timers: 2000,
+          message: 'berhasil login',
+        });
+        const timer = setTimeout(() => {
+          navigate('/');
+        }, 2500);
+      } else {
+        showAlert({
+          actions: 'error',
+          title: 'kesalahan',
+          timers: 2000,
+          message: data.message,
+        });
+        console.log(data.message);
+      }
+    } catch (error) {
+      showAlert({
+        actions: 'error',
+        title: 'kesalahan',
+        timers: 2000,
+        message: error.message,
+      });
+      console.log(error.message);
+    }
   };
   useEffect(() => {
     if (!err) return;

@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 @layer components {
-  .menuhome > li > a {
+  .menuhome > li > button {
     @apply flex flex-row mx-2 hover:text-red-500;
   }
   .icons {

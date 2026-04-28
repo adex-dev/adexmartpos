@@ -3,38 +3,10 @@ import { useState, useEffect } from 'react';
 import background from '../assets/background.svg';
 import NavBar from './navbar';
 import TopBar from './topbar';
+import { useAuthInit } from '../components/hooks/useAuthInit';
 export default function TemplateDefault() {
-  const checkLogin = () => {
-    const expirationTime = Date.now();
-    const data = localStorage.getItem('login');
-    if (!data) {
-      //   window.location.href = '/logout';
-      return;
-    }
-    let validasi;
-    try {
-      validasi = JSON.parse(data);
-    } catch (e) {
-      //   window.location.href = '/logout';
-      return;
-    }
-    if (
-      !Array.isArray(validasi) ||
-      validasi.length < 2 ||
-      !validasi[1].hasOwnProperty('expired')
-    ) {
-      //   window.location.href = '/logout';
-      return;
-    }
+  useAuthInit();
 
-    // Check if the expiration time is greater than the stored 'expired' time
-    if (expirationTime > validasi[1]['expired']) {
-      window.location.href = '/logout';
-    }
-  };
-  useEffect(() => {
-    checkLogin();
-  }, []);
   return (
     <>
       <div className={`hero h-screen relative `}>
