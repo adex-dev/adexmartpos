@@ -34,7 +34,6 @@ const router = createBrowserRouter(
   ),
 );
 function AppContent() {
-  useAuthInit();
   return <RouterProvider router={router} />;
 }
 

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { setAccessToken } from '../components/services/axios';
+import { setAccessToken } from '@/components/services/axios';
 export default function Logout() {
   const handleLogout = async () => {
     try {

@@ -1,5 +1,6 @@
-import logoToko from '../assets/img/logo.png';
-import { Icon } from '../components/icons/icons';
+import logoToko from '@/assets/img/logo.png';
+import { Icon } from '@/components/icons/icons';
+import { Link } from 'react-router-dom';
 export default function NavBar() {
   const HandleClick = (text) => {
     console.log(text);
@@ -30,9 +31,9 @@ export default function NavBar() {
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => HandleClick('/product')}>
+                  <Link to="product">
                     <Icon name="Product" size={30} /> <span>Product</span>
-                  </button>
+                  </Link>
                 </li>
                 <li>
                   <button onClick={() => HandleClick('/stock')}>

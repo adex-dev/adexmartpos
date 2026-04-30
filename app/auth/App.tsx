@@ -1,21 +1,30 @@
 import { useEffect, useState } from 'react';
-import background from '../assets/background.svg';
-import logo from '../assets/img/login.webp';
-import logoToko from '../assets/img/logo.png';
-import { showAlert } from '../components/utils/alert';
-import { Button, Form, Input, Title } from '../components/ui';
-import { PostLogin } from '../components/services/Api';
+import background from '@/assets/background.svg';
+import logo from '@/assets/img/login.webp';
+import logoToko from '@/assets/img/logo.png';
+import { showAlert } from '@/components/utils/alert';
+import { Button, Form, Input, Title } from '@/components/ui';
+import { PostLogin } from '@/components/services/Api';
 import { useAuth } from '@/components/services/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 export default function AppLogin() {
-  const { setAccessToken } = useAuth();
+  const { accessToken, setAccessToken, isReady } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || '/';
   const address = 'public/login';
   const [err, setErr] = useState('');
   const [form, setForm] = useState({
     username: '',
     password: '',
   });
+
+  useEffect(() => {
+    if (isReady && accessToken) {
+      navigate(from, { replace: true });
+    }
+  }, [accessToken, isReady, navigate, from]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -66,8 +75,8 @@ export default function AppLogin() {
           timers: 2000,
           message: 'berhasil login',
         });
-        const timer = setTimeout(() => {
-          navigate('/');
+        setTimeout(() => {
+          navigate(from, { replace: true });
         }, 2500);
       } else {
         showAlert({
@@ -97,6 +106,7 @@ export default function AppLogin() {
 
     return () => clearTimeout(timer);
   }, [err]);
+  if (!isReady) return null;
   return (
     <>
       <div className={`hero h-screen relative `}>
