@@ -15,39 +15,39 @@ export default function NavBar() {
             <div className="h-[90vh]">
               <ul className="menu w-full grow menuhome">
                 <li>
-                  <button onClick={HandleClick('/')}>
+                  <button onClick={() => HandleClick('/')}>
                     <Icon name="Dashboard" size={30} /> <span>Dashboard</span>
                   </button>
                 </li>
                 <li>
-                  <button onClick={HandleClick('/transaction')}>
+                  <button onClick={() => HandleClick('/transaction')}>
                     <Icon name="Transaksi" size={30} /> <span>Transaction</span>
                   </button>
                 </li>
                 <li>
-                  <button onClick={HandleClick('/report')}>
+                  <button onClick={() => HandleClick('/report')}>
                     <Icon name="Report" size={30} /> <span>Laporan</span>
                   </button>
                 </li>
                 <li>
-                  <button onClick={HandleClick('/product')}>
+                  <button onClick={() => HandleClick('/product')}>
                     <Icon name="Product" size={30} /> <span>Product</span>
                   </button>
                 </li>
                 <li>
-                  <button onClick={HandleClick('/stock')}>
+                  <button onClick={() => HandleClick('/stock')}>
                     <Icon name="Stock" size={30} /> <span>Stock</span>
                   </button>
                 </li>
                 <li className="mt-10">
-                  <button onClick={HandleClick('/settings')}>
+                  <button onClick={() => HandleClick('/settings')}>
                     <Icon name="Settings" size={30} /> <span>Settings</span>
                   </button>
                 </li>
               </ul>
             </div>
             <div className="flex-1 pb-5 px-3">
-              <button onClick={HandleClick('/logout')} className="icons">
+              <button onClick={() => HandleClick('/logout')} className="icons">
                 <Icon name="Logout" /> <span>Logout</span>
               </button>
             </div>

@@ -4,14 +4,15 @@ import {
   Route,
   RouterProvider,
 } from 'react-router-dom';
-import { AuthProvider } from './components/services/AuthContext';
-import TemplateDefault from './pages/templatedefault';
-import Home from './pages/includes/home';
-import ProductTable from './pages/includes/product';
-import SettingsPage from './pages/includes/settings';
-import ProtectedRoute from './ProtectedRoutes';
-import AppLogin from './auth/App';
-import Logout from './auth/logout';
+import { useAuthInit } from '@/components/hooks/useAuthInit';
+import { AuthProvider } from '@/components/services/AuthContext';
+import TemplateDefault from '@/pages/templatedefault';
+import Home from '@/pages/includes/home';
+import ProductTable from '@/pages/includes/product';
+import SettingsPage from '@/pages/includes/settings';
+import ProtectedRoute from '@/ProtectedRoutes';
+import AppLogin from '@/auth/App';
+import Logout from '@/auth/logout';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -33,6 +34,7 @@ const router = createBrowserRouter(
   ),
 );
 function AppContent() {
+  useAuthInit();
   return <RouterProvider router={router} />;
 }
 

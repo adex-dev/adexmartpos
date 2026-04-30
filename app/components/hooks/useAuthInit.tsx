@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import axios from 'axios';
-import { setAccessToken } from '../services/axios';
+import { setAccessToken } from '@/components/services/axios';
+import { useAuth } from '@/components/services/AuthContext';
 const apilink = import.meta.env.VITE_API;
 
 export function useAuthInit() {

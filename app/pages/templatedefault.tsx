@@ -1,12 +1,9 @@
 import { Outlet } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import background from '../assets/background.svg';
+import background from '@/assets/background.svg';
 import NavBar from './navbar';
 import TopBar from './topbar';
-import { useAuthInit } from '../components/hooks/useAuthInit';
 export default function TemplateDefault() {
-  useAuthInit();
-
   return (
     <>
       <div className={`hero h-screen relative `}>

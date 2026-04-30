@@ -5,9 +5,10 @@ import logoToko from '../assets/img/logo.png';
 import { showAlert } from '../components/utils/alert';
 import { Button, Form, Input, Title } from '../components/ui';
 import { PostLogin } from '../components/services/Api';
-import { setAccessToken } from '../components/services/axios';
+import { useAuth } from '@/components/services/AuthContext';
 import { useNavigate } from 'react-router-dom';
 export default function AppLogin() {
+  const { setAccessToken } = useAuth();
   const navigate = useNavigate();
   const address = 'public/login';
   const [err, setErr] = useState('');
