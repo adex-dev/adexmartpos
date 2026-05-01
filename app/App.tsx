@@ -1,23 +1,23 @@
+import AppLogin from '@/auth/App';
+import LogoutComponent from '@/auth/logout';
+import { AuthProvider } from '@/components/services/AuthContext';
+import Home from '@/pages/includes/home';
+import ProductTable from '@/pages/includes/product';
+import SettingsPage from '@/pages/includes/settings';
+import { default as PageTitle, default as Pagetitle } from '@/pages/pagestittle';
+import TemplateDefault from '@/pages/templatedefault';
+import ProtectedRoute from '@/ProtectedRoutes';
 import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
   RouterProvider,
 } from 'react-router-dom';
-import { useAuthInit } from '@/components/hooks/useAuthInit';
-import { AuthProvider } from '@/components/services/AuthContext';
-import TemplateDefault from '@/pages/templatedefault';
-import Home from '@/pages/includes/home';
-import ProductTable from '@/pages/includes/product';
-import SettingsPage from '@/pages/includes/settings';
-import ProtectedRoute from '@/ProtectedRoutes';
-import AppLogin from '@/auth/App';
-import Logout from '@/auth/logout';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path="/login" element={<AppLogin />} />
-      <Route path="/logout" element={<Logout />} />
+      <Route path="/login" element={<Pagetitle title="Pos System Login"><AppLogin /></Pagetitle>} />
+      <Route path="/logout" element={<Pagetitle title={"Logout System"}><LogoutComponent /></Pagetitle>} />
       <Route
         path="/"
         element={
@@ -26,9 +26,9 @@ const router = createBrowserRouter(
           </ProtectedRoute>
         }
       >
-        <Route index element={<Home />} />
-        <Route path="/product" element={<ProductTable />} />
-        <Route path="/settings" element={<SettingsPage />} />
+        <Route index element={<Pagetitle title="Dasboard System"><Home /></Pagetitle>} />
+        <Route path="/product" element={<PageTitle title="List Product"><ProductTable /></PageTitle>} />
+        <Route path="/settings" element={<Pagetitle title={"Setup Pos System"}><SettingsPage /></Pagetitle>} />
       </Route>
     </>,
   ),

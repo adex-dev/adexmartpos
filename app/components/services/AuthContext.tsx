@@ -1,10 +1,14 @@
-import { createContext, useContext, useState, useEffect } from 'react';
-import { setAccessToken as setAxiosToken } from './axios';
 import axios from 'axios';
+import { createContext, useContext, useEffect, useState } from 'react';
+import { setAccessToken as setAxiosToken } from './axios';
 
-const AuthContext = createContext(null);
+type AuthContextType = {
+  accessToken: string | null;
+  setAccessToken: (token: string | null) => void;
+  isReady: boolean;
+};
+const AuthContext = createContext<AuthContextType | null>(null);
 const apilink = import.meta.env.VITE_API;
-
 export function AuthProvider({ children }) {
   const [accessToken, setAccessTokenState] = useState(() => {
     return sessionStorage.getItem('at_token') || null;
@@ -20,8 +24,13 @@ export function AuthProvider({ children }) {
       sessionStorage.removeItem('at_token');
     }
   };
+  const isLogoutPage = window.location.pathname === '/logout';
   useEffect(() => {
     const init = async () => {
+      if (isLogoutPage) {
+      setIsReady(true);
+      return;
+    }
       if (accessToken) {
         setIsReady(true);
         await axios
@@ -30,19 +39,19 @@ export function AuthProvider({ children }) {
           .catch(() => setAccessToken(null));
         return;
       }
-      try {
-        const res = await axios.post(
-          `${apilink}/public/auth/refresh`,
-          {},
-          { withCredentials: true },
-        );
-        setAccessToken(res.data.access_token);
-      } catch (err) {
-        setAccessToken(null);
-        console.log('Belum login / Sesi habis');
-      } finally {
-        setIsReady(true);
-      }
+      // try {
+      //   const res = await axios.post(
+      //     `${apilink}/public/auth/refresh`,
+      //     {},
+      //     { withCredentials: true },
+      //   );
+      //   setAccessToken(res.data.access_token);
+      // } catch (err) {
+      //   setAccessToken(null);
+      //   console.log('Belum login / Sesi habis');
+      // } finally {
+      // }
+      setIsReady(true);
     };
     init();
   }, []);
@@ -53,4 +62,10 @@ export function AuthProvider({ children }) {
   );
 }
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = (): AuthContextType => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within AuthProvider');
+  }
+  return context;
+};

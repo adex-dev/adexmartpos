@@ -1,13 +1,14 @@
-import { useEffect } from 'react';
+import { FetchLogout } from '@/components/services/Api';
 import { setAccessToken } from '@/components/services/axios';
-export default function Logout() {
+import { useEffect } from 'react';
+export default function LogoutComponent() {
   const handleLogout = async () => {
     try {
-      let data = await FetchLogout({
-        address: '/public/logout',
+      await FetchLogout({
+        address: '/public/auth/logout',
       });
     } catch (error) {
-      console.log('logout error', e);
+      console.log('logout error', error);
     } finally {
       setAccessToken(null);
       window.location.href = '/login';
@@ -16,4 +17,5 @@ export default function Logout() {
   useEffect(() => {
     handleLogout();
   }, []);
+  return null;
 }

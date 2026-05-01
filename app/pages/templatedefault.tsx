@@ -1,6 +1,5 @@
-import { Outlet } from 'react-router-dom';
-import { useState, useEffect } from 'react';
 import background from '@/assets/background.svg';
+import { Outlet } from 'react-router-dom';
 import NavBar from './navbar';
 import TopBar from './topbar';
 export default function TemplateDefault() {

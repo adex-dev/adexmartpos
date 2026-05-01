@@ -1,6 +1,5 @@
 import Swal from 'sweetalert2';
-import 'Sweetalert2/dist/sweetalert2.css';
-import React from 'react';
+import 'sweetalert2/dist/sweetalert2.css';
 type AlertProps = {
   variant?: 'success' | 'error' | 'info' | 'warning' | 'question';
   title?: string;
@@ -67,7 +66,7 @@ export const showAlert = ({
     allowEscapeKey: finalConfirm ? true : false,
     confirmButtonText: confirmText,
     cancelButtonText: cancelText,
-    timer: finalConfirm ? false : finalTimers,
+    timer: finalConfirm ? undefined : finalTimers,
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
     customClass: {
@@ -76,13 +75,13 @@ export const showAlert = ({
   });
   if (finalQuestion) {
     alertPromise.then((result) => {
-      if (actions == 'success2') {
+      if (actions == 'success-confirm') {
         if (result.isConfirmed && onOkCallback) {
-          props.onOkCallback();
+          onOkCallback();
         }
       } else if (actions == 'question') {
         if (result.isConfirmed && onOkCallback) {
-          props.onOkCallback();
+          onOkCallback();
         } else if (result.isDenied) {
           console.log(result);
         }

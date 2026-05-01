@@ -1,12 +1,12 @@
 // src/components/Icon.tsx
 
-import Transaksi from "../../assets/img/cashier.png";
-import Dashboard from "../../assets/img/categories.png";
-import Report from "../../assets/img/investment.png";
-import Logout from "../../assets/img/logout.png";
-import Product from "../../assets/img/product.png";
-import Settings from "../../assets/img/setting.png";
-import Stock from "../../assets/img/stock.png";
+import Report from "@/assets/img/investment.png";
+import Transaksi from "@/assets/img/cashier.png";
+import Dashboard from "@/assets/img/categories.png";
+import Logout from "@/assets/img/logout.png";
+import Product from "@/assets/img/product.png";
+import Settings from "@/assets/img/setting.png";
+import Stock from "@/assets/img/stock.png";
 
 const Icons = {
   Dashboard,

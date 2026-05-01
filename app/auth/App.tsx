@@ -1,19 +1,25 @@
-import { useEffect, useState } from 'react';
 import background from '@/assets/background.svg';
 import logo from '@/assets/img/login.webp';
 import logoToko from '@/assets/img/logo.png';
-import { showAlert } from '@/components/utils/alert';
-import { Button, Form, Input, Title } from '@/components/ui';
 import { PostLogin } from '@/components/services/Api';
 import { useAuth } from '@/components/services/AuthContext';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { Button, Form, Input, Title } from '@/components/ui';
+import { showAlert } from '@/components/utils/alert';
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 export default function AppLogin() {
-  const { accessToken, setAccessToken, isReady } = useAuth();
+  const auth = useAuth();
+
+  if (!auth) {
+    throw new Error('useAuth must be used within AuthProvider');
+  }
+
+  const { accessToken, setAccessToken, isReady } = auth;
   const navigate = useNavigate();
   const location = useLocation();
 
   const from = location.state?.from?.pathname || '/';
-  const address = 'public/login';
+  const address = 'public/auth/login';
   const [err, setErr] = useState('');
   const [form, setForm] = useState({
     username: '',
@@ -26,7 +32,7 @@ export default function AppLogin() {
     }
   }, [accessToken, isReady, navigate, from]);
 
-  const handleChange = (e) => {
+  const handleChange = (e:any) => {
     const { name, value } = e.target;
     if (typeof name !== 'string' || name.trim() === '') {
       setErr('Periksa kembali username dan password anda.!');
@@ -69,6 +75,9 @@ export default function AppLogin() {
       if (data.success === true || data.status === true) {
         data = data.data;
         setAccessToken(data.token);
+        if(Array.isArray(data.user)){
+          sessionStorage.setItem('user', JSON.stringify(data.user[0]));
+        }
         showAlert({
           actions: 'success',
           title: 'Success',
@@ -88,13 +97,14 @@ export default function AppLogin() {
         console.log(data.message);
       }
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
       showAlert({
         actions: 'error',
         title: 'kesalahan',
         timers: 2000,
-        message: error.message,
+        message: errorMessage,
       });
-      console.log(error.message);
+      console.log(errorMessage);
     }
   };
   useEffect(() => {

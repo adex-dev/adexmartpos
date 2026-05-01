@@ -1,5 +1,6 @@
 // import axios from 'axios';
 import api from './axios';
+const apilink = import.meta.env.VITE_API;
 export const PostData = async ({ form, address }) => {
   const PostData = new FormData();
   // eslint-disable-next-line no-useless-catch
@@ -13,26 +14,11 @@ export const PostData = async ({ form, address }) => {
     const response = await api.post(`/${address}`, PostData);
     // await saveProducts(data);
     return response.data;
-  } catch (error) {
-    if (error.response) {
-      const { data, status } = error.response;
-      if (data) {
-        return data;
-      } else {
-        if (status === 404) {
-          return { message: 'Data not found ' + status, status: false };
-        } else {
-          return data;
-        }
-      }
-    } else if (error.request) {
-      return { message: 'No response received from server', status: false };
-    } else {
-      return { message: error.message || error.code, status: false };
-    }
+  } catch (error:unknown) {
+  return MessageErrors(error)
   }
+    
 };
-
 export const PostLogin = async ({ form, address }) => {
   const PostData = new FormData();
   // eslint-disable-next-line no-useless-catch
@@ -47,8 +33,15 @@ export const PostLogin = async ({ form, address }) => {
     // await saveProducts(data);
     return response.data;
   } catch (error) {
-    if (error.response) {
-      const { data, status } = error.response;
+    return MessageErrors(error)
+  }
+  
+};
+function MessageErrors (error:unknown){
+   if (typeof error ==="object" && error !==null) {
+    const err = error as any
+     if (err.response) {
+      const { data, status } = err.response;
       if (data) {
         return data;
       } else {
@@ -58,20 +51,23 @@ export const PostLogin = async ({ form, address }) => {
           return data;
         }
       }
-    } else if (error.request) {
+    } else if (err.request) {
       return { message: 'No response received from server', status: false };
     } else {
-      return { message: error.message || error.code, status: false };
+      return { message: err.message || err.code, status: false };
     }
   }
-};
-
+   
+}
 export const FetchLogout = async ({ address }) => {
   try {
-    const response = await api.get(`/${address}`);
+    const response = await api.post(`${apilink}${address}`,{},{
+      withCredentials: true,
+    });
     // await saveProducts(data);
     return response.data;
   } catch (error) {
-    return { status: false };
+      return MessageErrors(error)
   }
 };
+

@@ -1,6 +1,6 @@
-import { Icon } from '../../components/icons';
-import { Adexmart } from '../../components/ui/Informations';
-import { StatsGrid } from '../../components/ui/statsgrid';
+// import { Icon } from '../../components/icons';
+import { Adexmart } from '@/components/ui/Informations';
+import { StatsGrid } from '@/components/ui/statsgrid';
 
 export default function Home() {
   return (

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 let accessToken = null;
 let isRefreshing = false;
-let failedQueue = [];
+let failedQueue: Array<{ resolve: (value: any) => void; reject: (reason?: any) => void }> = [];
 const apilink = import.meta.env.VITE_API;
 
 export const setAccessToken = (token) => {
