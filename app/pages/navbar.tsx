@@ -49,7 +49,7 @@ export default function NavBar() {
               </ul>
             </div>
             <div className="flex-1 pb-5 px-3">
-              <button onClick={() => HandleClick('/logout')} className="icons">
+              <button onClick={() => HandleClick('/logout')} className="icons cursor-pointer">
                 <Icon name="Logout" /> <span>Logout</span>
               </button>
             </div>

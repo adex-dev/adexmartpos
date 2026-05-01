@@ -7,6 +7,7 @@ export default function LogoutComponent() {
       await FetchLogout({
         address: '/public/auth/logout',
       });
+         sessionStorage.removeItem('user');
     } catch (error) {
       console.log('logout error', error);
     } finally {

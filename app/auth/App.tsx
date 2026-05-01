@@ -75,9 +75,7 @@ export default function AppLogin() {
       if (data.success === true || data.status === true) {
         data = data.data;
         setAccessToken(data.token);
-        if(Array.isArray(data.user)){
-          sessionStorage.setItem('user', JSON.stringify(data.user[0]));
-        }
+        sessionStorage.setItem('user', JSON.stringify(data.user));
         showAlert({
           actions: 'success',
           title: 'Success',
