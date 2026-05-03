@@ -1,6 +1,21 @@
 // import axios from 'axios';
 import api from './axios';
 const apilink = import.meta.env.VITE_API;
+export const GetData = async ({ address,pagination }) => {
+  const params = new URLSearchParams();
+  // params.append('usernamekeys',userskeys)
+  if (pagination !=0) {
+   params.append('pagination',pagination)
+  }
+  try {
+    const response = await api.get(`/${address}?${params}`);
+    // await saveProducts(data);
+    return response.data;
+  } catch (error:unknown) {
+  return MessageErrors(error)
+  }
+    
+};
 export const PostData = async ({ form, address }) => {
   const PostData = new FormData();
   // eslint-disable-next-line no-useless-catch

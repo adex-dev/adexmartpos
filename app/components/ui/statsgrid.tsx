@@ -1,3 +1,5 @@
+import { formatRupiah, terbilang } from "../utils";
+
 type StatsProps = {
   transactions: number;
   revenue: number;
@@ -18,8 +20,9 @@ export const StatsGrid = ({ transactions, revenue, users }: StatsProps) => {
       <div className="bg-white rounded-xl shadow p-4">
         <p className="text-sm text-gray-500">Pendapatan</p>
         <h2 className="text-2xl font-bold">
-          Rp {revenue.toLocaleString('id-ID')}
+          {formatRupiah(revenue)}
         </h2>
+        <p className="text-xs text-gray-500">{terbilang(revenue)}</p>
       </div>
 
       {/* Users */}

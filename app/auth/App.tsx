@@ -14,7 +14,7 @@ export default function AppLogin() {
     throw new Error('useAuth must be used within AuthProvider');
   }
 
-  const { accessToken, setAccessToken, isReady } = auth;
+  const { accessToken, setAccessToken, isReady,setUser,setModulAccess,setStore } = auth;
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -75,7 +75,12 @@ export default function AppLogin() {
       if (data.success === true || data.status === true) {
         data = data.data;
         setAccessToken(data.token);
+        sessionStorage.setItem('store', JSON.stringify(data.store));
         sessionStorage.setItem('user', JSON.stringify(data.user));
+        sessionStorage.setItem('modul_access', JSON.stringify(data.modul_access));
+        setUser(data.user)
+        setModulAccess(data.modul_access)
+        setStore(data.store)
         showAlert({
           actions: 'success',
           title: 'Success',
@@ -92,7 +97,6 @@ export default function AppLogin() {
           timers: 2000,
           message: data.message,
         });
-        console.log(data.message);
       }
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';

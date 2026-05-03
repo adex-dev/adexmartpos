@@ -1,6 +1,7 @@
 import AppLogin from '@/auth/App';
 import LogoutComponent from '@/auth/logout';
 import { AuthProvider } from '@/components/services/AuthContext';
+import Categories from '@/pages/categories';
 import Home from '@/pages/includes/home';
 import ProductTable from '@/pages/includes/product';
 import SettingsPage from '@/pages/includes/settings';
@@ -13,6 +14,7 @@ import {
   Route,
   RouterProvider,
 } from 'react-router-dom';
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -28,6 +30,7 @@ const router = createBrowserRouter(
       >
         <Route index element={<Pagetitle title="Dasboard System"><Home /></Pagetitle>} />
         <Route path="/product" element={<PageTitle title="List Product"><ProductTable /></PageTitle>} />
+        <Route path="/category" element={<PageTitle title="List Categories"><Categories /></PageTitle>} />
         <Route path="/settings" element={<Pagetitle title={"Setup Pos System"}><SettingsPage /></Pagetitle>} />
       </Route>
     </>,

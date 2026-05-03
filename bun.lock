@@ -10,6 +10,7 @@
         "react": "^19.1.1",
         "react-dom": "^19.1.1",
         "react-helmet-async": "^3.0.0",
+        "react-html-table-to-excel": "^2.0.0",
         "react-router": "^7.14.2",
         "sweetalert2": "^11.26.24",
       },
@@ -593,6 +594,8 @@
     "react-fast-compare": ["react-fast-compare@3.2.2", "", {}, "sha512-nsO+KSNgo1SbJqJEYRE9ERzo7YtYbou/OqjSQKxV7jcKox7+usiUVZOAC+XnDOABXggQTno0Y1CpVnuWEc1boQ=="],
 
     "react-helmet-async": ["react-helmet-async@3.0.0", "", { "dependencies": { "invariant": "^2.2.4", "react-fast-compare": "^3.2.2", "shallowequal": "^1.1.0" }, "peerDependencies": { "react": "^16.6.0 || ^17.0.0 || ^18.0.0 || ^19.0.0" } }, "sha512-nA3IEZfXiclgrz4KLxAhqJqIfFDuvzQwlKwpdmzZIuC1KNSghDEIXmyU0TKtbM+NafnkICcwx8CECFrZ/sL/1w=="],
+
+    "react-html-table-to-excel": ["react-html-table-to-excel@2.0.0", "", { "dependencies": { "prop-types": "^15.5.10" }, "peerDependencies": { "react": "^15.x.x" } }, "sha512-afvcCtQWZPfen3D+UFu9YMHleQqpVm3manmiWaxr0wv76hx+BkQ0/nkOI1UyQs29pzAUWtZDiD9Eu/MqsDOEJw=="],
 
     "react-interactive": ["react-interactive@0.8.3", "", { "dependencies": { "detect-it": "^3.0.3", "object-assign": "^4.1.1", "prop-types": "^15.6.0" }, "peerDependencies": { "react": ">=15" } }, "sha512-mmRvA9aKP7zu9kVfP1AX1egX8tFlnE3DDXq92z0JTZezfOpmeQBzr77O1+mTV54OOmn+M2t6c5kFD5VnuFoM7A=="],
 

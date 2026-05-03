@@ -82,6 +82,8 @@ export const terbilang = (value: number): string => {
       return toWords(Math.floor(n / 1000)) + ' ribu ' + toWords(n % 1000);
     if (n < 1000000000)
       return toWords(Math.floor(n / 1000000)) + ' juta ' + toWords(n % 1000000);
+    if (n < 1000000000000)
+      return toWords(Math.floor(n / 1000000000)) + ' miliar ' + toWords(n % 1000000000);
 
     return 'terlalu besar';
   };

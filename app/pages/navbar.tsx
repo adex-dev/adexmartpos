@@ -37,6 +37,11 @@ export default function NavBar() {
                   </Link>
                 </li>
                 <li>
+                  <Link to="category">
+                    <Icon name="Categories" size={30} /> <span>Category</span>
+                  </Link>
+                </li>
+                <li>
                   <button onClick={() => HandleClick('/stock')}>
                     <Icon name="Stock" size={30} /> <span>Stock</span>
                   </button>

@@ -1,3 +1,4 @@
+import { SearchBig } from '@boxicons/react';
 import React from 'react';
 
 type InputProps = {
@@ -14,10 +15,16 @@ export const Input: React.FC<InputProps> = ({
 }) => {
   return (
     <div className="form-control w-full">
-      {label && (
-        <label className="label">
-          <span className="label-text">{label}</span>
+      {type === 'search' ? (
+        <label className="input">
+          <SearchBig />
         </label>
+      ) : (
+        label && (
+          <label className="label">
+            <span className="label-text">{label}</span>
+          </label>
+        )
       )}
 
       <input
