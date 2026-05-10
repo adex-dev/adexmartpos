@@ -19,7 +19,7 @@ export default function AppLogin() {
   const location = useLocation();
 
   const from = location.state?.from?.pathname || '/';
-  const address = 'public/auth/login';
+  const address = 'login';
   const [err, setErr] = useState('');
   const [form, setForm] = useState({
     username: '',
@@ -53,7 +53,6 @@ export default function AppLogin() {
       setErr('Periksa kembali password anda.!');
     }
     if (err) {
-      console.log(err);
       showAlert({
         actions: 'error',
         title: 'kesalahan',
@@ -68,13 +67,13 @@ export default function AppLogin() {
         address: address,
         form: {
           password: form.password,
-          usernamekeys: form.username,
+          username: form.username,
           keys: 'adexmart',
         },
       });
       if (data.success === true || data.status === true) {
         data = data.data;
-        setAccessToken(data.token);
+        setAccessToken(data.access_token);
         sessionStorage.setItem('store', JSON.stringify(data.store));
         sessionStorage.setItem('user', JSON.stringify(data.user));
         sessionStorage.setItem('modul_access', JSON.stringify(data.modul_access));

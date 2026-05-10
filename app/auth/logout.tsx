@@ -5,7 +5,7 @@ export default function LogoutComponent() {
   const handleLogout = async () => {
     try {
       await FetchLogout({
-        address: '/public/auth/logout',
+        address: '/logout',
       });
          sessionStorage.removeItem('user');
     } catch (error) {

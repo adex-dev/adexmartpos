@@ -2,8 +2,12 @@ import axios from 'axios';
 
 let accessToken = null;
 let isRefreshing = false;
-let failedQueue: Array<{ resolve: (value: any) => void; reject: (reason?: any) => void }> = [];
+let failedQueue: Array<{
+  resolve: (value: any) => void;
+  reject: (reason?: any) => void;
+}> = [];
 const apilink = import.meta.env.VITE_API;
+const ApiVersion = import.meta.env.VITE_API_VERSION;
 
 export const setAccessToken = (token) => {
   accessToken = token;
@@ -29,7 +33,9 @@ const processQueue = (error, token = null) => {
 api.interceptors.request.use((config) => {
   if (accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`;
+    config.headers['Content-Type'] = `application/json`;
   }
+  config.headers['Content-Type'] = `application/json`;
   return config;
 });
 
@@ -40,7 +46,6 @@ api.interceptors.response.use(
     const originalRequest = error.config;
 
     if (error.response?.status === 401 && !originalRequest._retry) {
-      
       if (isRefreshing) {
         return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject });
@@ -55,10 +60,22 @@ api.interceptors.response.use(
       isRefreshing = true;
 
       return new Promise((resolve, reject) => {
+        // config.headers['Content-Type'] = `application/json`;
         axios
-          .post(`${apilink}/public/auth/refresh`, {}, { withCredentials: true })
+          .post(
+            `${apilink + '/' + ApiVersion}/auth/refresh`,
+            {},
+            {
+              withCredentials: true,
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            },
+          )
           .then((res) => {
             const newToken = res.data.access_token;
+            console.log(newToken);
+            
             setAccessToken(newToken); // Update token lokal
 
             // Jalankan semua request yang sedang mengantre

@@ -31,6 +31,7 @@ type AuthContextType = {
 
 const AuthContext = createContext<AuthContextType | null>(null);
 const apilink = import.meta.env.VITE_API;
+const ApiVersion = import.meta.env.VITE_API_VERSION;
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   // Akses Token
@@ -56,7 +57,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   });
 
   // Bypass role
-  const BYPASS_ROLES = ['admin', 'director', 'adex','manager'];
+  const BYPASS_ROLES = ['admin', 'director', 'adex', 'manager'];
 
   const accessSet = useMemo(() => new Set(modulAccess), [modulAccess]);
   const hasAccess = (key: string) => {
@@ -97,40 +98,50 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const storedUser = sessionStorage.getItem('user');
         const storedAccess = sessionStorage.getItem('modul_access');
         const stored = sessionStorage.getItem('store');
-        let endpoint ="refresh"
+        let endpoint = 'refresh';
         if (user?.Roles && BYPASS_ROLES.includes(user.Roles)) {
           if (!storedUser) {
-            endpoint="refressh"
+            endpoint = 'refressh';
           }
-        }else{
+        } else {
           if (!storedUser || !storedAccess || !stored) {
-             endpoint="refressh"
+            endpoint = 'refressh';
           }
         }
-        const res = await axios.post(
-          `${apilink}/public/auth/${endpoint}`,
+        const rs = await axios.post(
+          `${apilink + '/' + ApiVersion + '/auth/' + endpoint}`,
           {},
-          { withCredentials: true },
+          {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          },
         );
-        const token = res.data.access_token;
-        const userData = res.data.user;
-        const modules = res.data.modul_access;
-        const storeData = res.data.store;
+        const res = rs.data.data;
+        const token = res.access_token
+          ? res.access_token
+          : rs.data.access_token;
+        const userData = res.user;
+        const modules = res.modul_access;
+        const storeData = res.store;
+        console.log('token :', token);
+
         setAccessToken(token);
 
-        if (userData) {
-          sessionStorage.setItem('user', JSON.stringify(userData));
-          setUser(userData);
-        }
         if (endpoint === 'refressh') {
-          sessionStorage.setItem('modul_access', modules);
-          if (modules) {
+          if (userData) {
+            sessionStorage.setItem('user', JSON.stringify(userData));
+            setUser(userData);
+          }
+          if (modules || modules !== 'undefined') {
+            sessionStorage.setItem('modul_access', modules);
             setModulAccess(modules);
           } else {
             setModulAccess([]);
           }
-          sessionStorage.setItem('store', JSON.stringify(storeData));
-          if (storeData) {
+          if (storeData || storeData !== 'undefined') {
+            sessionStorage.setItem('store', JSON.stringify(storeData));
             setStore(storeData);
           }
         }

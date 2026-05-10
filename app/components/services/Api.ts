@@ -1,6 +1,7 @@
 // import axios from 'axios';
 import api from './axios';
 const apilink = import.meta.env.VITE_API;
+const apiversion = import.meta.env.VITE_API_VERSION;
 export const GetData = async ({ address,pagination }) => {
   const params = new URLSearchParams();
   // params.append('usernamekeys',userskeys)
@@ -76,7 +77,7 @@ function MessageErrors (error:unknown){
 }
 export const FetchLogout = async ({ address }) => {
   try {
-    const response = await api.post(`${apilink}${address}`,{},{
+    const response = await api.post(`${apilink+"/"+apiversion+"/"+address}`,{},{
       withCredentials: true,
     });
     // await saveProducts(data);
