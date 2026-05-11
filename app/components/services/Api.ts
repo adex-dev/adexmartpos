@@ -19,7 +19,6 @@ export const GetData = async ({ address,pagination }) => {
 };
 export const PostData = async ({ form, address }) => {
   const PostData = new FormData();
-  // eslint-disable-next-line no-useless-catch
   if (form) {
     Object.keys(form).forEach((key) => {
       PostData.append(key, form[key]);
@@ -37,7 +36,6 @@ export const PostData = async ({ form, address }) => {
 };
 export const PostLogin = async ({ form, address }) => {
   const PostData = new FormData();
-  // eslint-disable-next-line no-useless-catch
   if (form) {
     Object.keys(form).forEach((key) => {
       PostData.append(key, form[key]);
@@ -55,6 +53,8 @@ export const PostLogin = async ({ form, address }) => {
 };
 function MessageErrors (error:unknown){
    if (typeof error ==="object" && error !==null) {
+    
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const err = error as any
      if (err.response) {
       const { data, status } = err.response;

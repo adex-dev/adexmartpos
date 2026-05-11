@@ -94,6 +94,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setIsReady(true);
         return;
       }
+          const get_token = sessionStorage.getItem('at_token');
+    if (get_token) {
+      setAccessToken(get_token);
+       setIsReady(true);
+    }else{
       try {
         const storedUser = sessionStorage.getItem('user');
         const storedAccess = sessionStorage.getItem('modul_access');
@@ -125,7 +130,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const userData = res.user;
         const modules = res.modul_access;
         const storeData = res.store;
-        console.log('token :', token);
 
         setAccessToken(token);
 
@@ -167,6 +171,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       } finally {
         setIsReady(true);
       }
+    }
     };
     init();
   }, []);
